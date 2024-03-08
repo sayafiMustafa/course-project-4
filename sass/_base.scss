@@ -1,0 +1,225 @@
+// COLOR VARIABLES
+$color-primary: #c69963;
+$color-primary-dark: #b28451;
+
+$color-secondary: #101d2c;
+
+$color-gray-light-1: #f9f7f6;
+$color-gray-light-2: #aaa;
+
+$color-gray-dark-1: #54483a;
+$color-gray-dark-2: #6d5d4b;
+
+$font-primary: 'Nunito', sans-serif;
+$font-display: 'Josefin Sans', sans-serif;
+
+$bp-1200px: 75em; // (1200px / 16)
+// $bp-1100px: 68.75em;
+$bp-1000px: 62.5em;
+// $bp-900px: 56.25em;
+$bp-800px: 50em;
+$bp-600px: 37.5em;
+// $bp-500px: 31.25em;
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+// ::-webkit-scrollbar {
+//   width: 0;
+// }
+
+html {
+  box-sizing: border-box;
+
+  // 9px / 16px = 0.5625 = 56.25%
+
+  /* font-size: 10px; */
+  font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-1200px) {
+    // 8px / 16px = 0.5 => 50%
+    font-size: 50%;
+
+    // 9px / 16px = 0.5625 = 56.25%
+    // font-size: 56.25%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  font-weight: 300;
+  // font-size: 1.8rem;
+  line-height: 1.6;
+
+  color: $color-gray-dark-2;
+  // color: #000;
+}
+
+.container {
+  display: grid;
+
+  // The focus is always more on the columns and not the rows.
+  // Sometimes, you may not even need to set fix sizes for the rows!
+  // And we usually don't name the rows lines!
+
+  // grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+
+  grid-template-rows:
+    [header-start realtors-start]
+    80vh
+    [header-end realtors-end features-start]
+    min-content
+    [features-end story-pictures-start story-content-start]
+    40vw
+    [story-pictures-end story-content-end homes-start]
+    min-content
+    [homes-end gallery-start]
+    min-content
+    [gallery-end footer-start]
+    min-content
+    [footer-end];
+
+  // Test
+  /* grid-template-columns:
+    [sidebar-start]
+    8rem
+    [sidebar-end full-start]
+    1fr
+    [center-start]
+    repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end]
+    1fr
+    [full-end]; */
+
+  // Usually our main content width is 1100px - 1200px
+  // We picked 1140px
+  // 1140 / 8 (main-cols) = ~ 14rem
+  grid-template-columns:
+    [sidebar-start]
+    8rem
+    [sidebar-end full-start]
+    minmax(6rem, 1fr)
+    // 1fr
+    [center-start]
+    repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end]
+    minmax(6rem, 1fr)
+    // 1fr
+    [full-end];
+
+  @media only screen and (max-width: $bp-1000px) {
+    grid-template-rows:
+      [top-sidebar-start]
+      6rem
+      [top-sidebar-end header-start realtors-start]
+      80vh
+      [header-end realtors-end features-start]
+      min-content
+      [features-end story-pictures-start story-content-start]
+      40vw
+      [story-pictures-end story-content-end homes-start]
+      min-content
+      [homes-end gallery-start]
+      min-content
+      [gallery-end footer-start]
+      min-content
+      [footer-end];
+
+    grid-template-columns:
+      // [sidebar-start]
+      // 8rem
+      // [sidebar-end full-start]
+
+      [full-start]
+      minmax(6rem, 1fr)
+      // 1fr
+      [center-start]
+      repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      [center-end]
+      minmax(6rem, 1fr)
+      // 1fr
+      [full-end];
+  }
+
+  @media only screen and (max-width: $bp-800px) {
+    // grid-template-rows:
+    //   [top-sidebar-start]
+    //   6rem
+    //   [top-sidebar-end header-start]
+    //   calc(100vh - 6rem)
+    //   [header-end realtors-start]
+    //   min-content
+    //   [realtors-end features-start]
+    //   min-content
+    //   [features-end story-content-start]
+    //   40vw
+    //   [story-content-end story-pictures-start]
+    //   40vw
+    //   [story-pictures-end homes-start]
+    //   min-content
+    //   [homes-end gallery-start]
+    //   min-content
+    //   [gallery-end footer-start]
+    //   min-content
+    //   [footer-end];
+
+    // grid-template-rows: 6rem calc(100vh - 6rem)
+
+    // He switched to (auto/min-content) for the rest of the columns but I can't,
+    // as that would remove the lines names which my items depend on! 
+
+    grid-template-rows:
+      [top-sidebar-start]
+      6rem
+      [top-sidebar-end header-start]
+      calc(100vh - 6rem)
+      [header-end realtors-start]
+      min-content
+      [realtors-end features-start]
+      min-content
+      [features-end story-content-start]
+      min-content
+      [story-content-end story-pictures-start]
+      min-content
+      [story-pictures-end homes-start]
+      min-content
+      [homes-end gallery-start]
+      min-content
+      [gallery-end footer-start]
+      min-content
+      [footer-end];
+  }
+
+  & > * {
+    // font-size: 3rem;
+    // padding: 3rem;
+    // background-color: transparent !important;
+  }
+}
+
+// utility classes (for re-usable elements only!)
+
+.u-center-text {
+  text-align: center !important;
+}
+
+.u-margin-bottom-sm {
+  margin-bottom: 2rem !important;
+}
+
+.u-margin-bottom-md {
+  margin-bottom: 3rem !important;
+}
+
+.u-margin-bottom-lg {
+  margin-bottom: 4rem !important;
+}
+
+.u-margin-bottom-hg {
+  margin-bottom: 8rem !important;
+}
